@@ -1,0 +1,91 @@
+# 📈 Analiza Portfelowa z Wykorzystaniem Teorii Markowitza  
+### Optymalizacja Portfela (Max Sharpe & Min Vol) + Test OUT-OF-SAMPLE + Benchmark S&P 500
+
+Projekt przedstawia kompletną analizę portfelową opartą na klasycznej teorii Markowitza.  
+Celem była budowa portfeli efektywnych (Max Sharpe oraz Min Vol), a następnie ich ocena w okresie OUT-OF-SAMPLE oraz porównanie wyników z benchmarkiem rynkowym (S&P 500).
+
+W projekcie zastosowano:
+- estymację kowariancji na danych historycznych,
+- optymalizację konwekcyjną (programowanie wypukłe),
+- podział danych na zbiór **IN-SAMPLE (treningowy)** i **OUT-OF-SAMPLE (testowy)**,
+- analizę stabilności portfeli oraz ich odporności na overfitting,
+- zaawansowane wizualizacje: granica efektywności, skumulowane zwroty, porównania Sharpe.
+
+---
+
+# 📌 Zawartość projektu
+- `analiza-portfelowa.ipynb` — kompletny notebook z kodem, analizami i wykresami  
+- Optymalizacja portfeli:
+  - **Portfel Max Sharpe**
+  - **Portfel Min Vol**
+- Ewaluacja OUT-OF-SAMPLE
+- Benchmark: **S&P 500 (indeks ^GSPC)**
+- Granica Efektywności Markowitza (Efficient Frontier)
+- Wykresy porównawcze portfeli i benchmarku
+
+---
+
+# 🧠 Metodyka
+
+### **1. Dane**
+- Źródło danych: Yahoo Finance  
+- Zakres: 2020–2024  
+- Aktywa: m.in. AAPL, MSFT, PYPL, NFLX, WMT, AMD, AMZN i inne  
+- Dziennie logarytmiczne stopy zwrotu
+
+### **2. Podział danych**
+- **80% IN-SAMPLE** – optymalizacja portfeli  
+- **20% OUT-OF-SAMPLE** – ocena rzeczywistych wyników  
+
+### **3. Optymalizacja (CVXPY)**
+- Max Sharpe → maksymalizacja  
+  \[
+  \frac{E[R_p] - R_f}{\sigma_p}
+  \]
+- Min Vol → minimalizacja wariancji portfela  
+- Ograniczenia:
+  - wagi ≥ 0 (zakaz short-sellingu)
+  - suma wag = 1
+
+---
+
+# 📊 Wyniki
+
+## **Portfel Max Sharpe (IN-SAMPLE)**
+- Zwrot: **42.34%**
+- Ryzyko: **41.38%**
+- Sharpe: **0.88**
+
+## **Portfel Min Vol (IN-SAMPLE)**
+- Zwrot: **8.89%**
+- Ryzyko: **20.15%**
+- Sharpe: **0.16**
+
+---
+
+## **Wyniki OUT-OF-SAMPLE (realne testowanie)**
+
+### **Portfel Max Sharpe**
+- Zwrot: **49.34%**
+- Ryzyko: **32.76%**
+- Sharpe: **1.33**
+
+### **Portfel Min Vol**
+- Zwrot: **25.51%**
+- Ryzyko: **15.04%**
+- Sharpe: **1.31**
+
+### **Benchmark – S&P 500**
+- Zwrot: **21.06%**
+- Sharpe: **1.21**
+
+---
+
+# 📝 Wnioski
+
+- Portfel **Max Sharpe** osiągnął najwyższą stopę zwrotu i Sharpe ratio, pokonując benchmark.  
+- Portfel **Min Vol** okazał się stabilny i wyjątkowo efektywny OUT-OF-SAMPLE, co świadczy o jego odporności na przetrenowanie.  
+- Oba portfele **pokonały S&P 500 pod względem Sharpe ratio**, co w klasycznych modelach Markowitza nie jest regułą.  
+- Wyniki OUT-OF-SAMPLE są lepsze niż IN-SAMPLE, co sugeruje brak overfittingu oraz dobrą jakość estymacji ryzyka.
+
+---
